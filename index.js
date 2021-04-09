@@ -8,6 +8,7 @@ const app = express()
 const cors = require('cors')
 
 const notesRouter = require('./controllers/notes')
+const usersRouter = require('./controllers/users')
 const notFound = require('./middlewares/notFound')
 const handleErrors = require('./middlewares/handleErrors')
 
@@ -22,6 +23,8 @@ app.get('/', (request, response) => {
 
 // Notes Route
 app.use('/api/notes', notesRouter)
+// Users Route
+app.use('/api/users', usersRouter)
 
 // Middlewares for handle errors
 app.use(notFound)

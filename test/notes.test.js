@@ -2,14 +2,19 @@ const mongoose = require('mongoose')
 
 const Note = require('../models/Note')
 const { server } = require('../index')
-const { initialNotes, api, getAllContentFromNotes } = require('./helpers')
+const { initialNotes, api, getAllContentFromNotes, getUsers } = require('./helpers')
 
 beforeEach(async () => {
   await Note.deleteMany({})
-
+  const users = await getUsers()
+  const idUser = users[0].id
   // sequential
   for (const note of initialNotes) {
-    const notesObject = new Note(note)
+    const noteWithUser = {
+      ...note,
+      user: idUser
+    }
+    const notesObject = new Note(noteWithUser)
     await notesObject.save()
   }
 })
@@ -112,9 +117,12 @@ describe('DELETE Test', () => {
 
 describe('POST Test', () => {
   test('a valid note can be added', async () => {
+    const users = await getUsers()
+
     const newNote = {
       content: 'New Note Added',
-      important: false
+      important: false,
+      userId: users[0].id
     }
 
     await api
