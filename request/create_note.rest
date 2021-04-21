@@ -1,8 +1,8 @@
 POST http://localhost:3001/api/notes
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNjVlYWNlOGI4MjMzMTE3Y2VhNzM1NiIsInVzZXJuYW1lIjoiSnVrbGkxMjkiLCJpYXQiOjE2MTkwMzMzOTksImV4cCI6MTYxOTYzODE5OX0.1gfXwDjhDPGjB3TyWpgUJJcFYCgMiqThAFqcA0Dk
 
 {
-  "content": "This is a new note by Julkli129 but is not important",
-  "important": false,
-  "userId": "6065eace8b8233117cea7356"
+  "content": "This is a new note with token using middleware",
+  "important": true
 }

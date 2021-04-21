@@ -9,6 +9,7 @@ const cors = require('cors')
 
 const notesRouter = require('./controllers/notes')
 const usersRouter = require('./controllers/users')
+const loginRouter = require('./controllers/login')
 const notFound = require('./middlewares/notFound')
 const handleErrors = require('./middlewares/handleErrors')
 
@@ -25,6 +26,8 @@ app.get('/', (request, response) => {
 app.use('/api/notes', notesRouter)
 // Users Route
 app.use('/api/users', usersRouter)
+// Login Router
+app.use('/api/login', loginRouter)
 
 // Middlewares for handle errors
 app.use(notFound)

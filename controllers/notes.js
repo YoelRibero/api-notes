@@ -2,6 +2,7 @@ const notesRouter = require('express').Router()
 
 const Note = require('../models/Note')
 const User = require('../models/User')
+const userExtractor = require('../middlewares/userExtractor')
 
 // get all notes
 notesRouter.get('/', async (req, res) => {
@@ -29,7 +30,7 @@ notesRouter.get('/:id', async (req, res) => {
 })
 
 // update note
-notesRouter.put('/:id', async (req, res, next) => {
+notesRouter.put('/:id', userExtractor, async (req, res, next) => {
   const { id } = req.params
   const note = req.body
 
@@ -47,7 +48,7 @@ notesRouter.put('/:id', async (req, res, next) => {
 })
 
 // delete note
-notesRouter.delete('/:id', async (req, res, next) => {
+notesRouter.delete('/:id', userExtractor, async (req, res, next) => {
   const { id } = req.params
 
   try {
@@ -59,12 +60,14 @@ notesRouter.delete('/:id', async (req, res, next) => {
 })
 
 // create note
-notesRouter.post('/', async (req, res, next) => {
+notesRouter.post('/', userExtractor, async (req, res, next) => {
   const { 
     content, 
-    important = false,
-    userId
+    important = false
   } = req.body
+
+  // Get userId from request
+  const { userId } = req
 
   const user = await User.findById(userId)
 
